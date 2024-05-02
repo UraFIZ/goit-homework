@@ -1,4 +1,4 @@
-from decorators import global_exception_handler
+from decorators import log_errors
 
 def calculate_total_and_average_salary(salaries: list) -> tuple[int, int]:
   total_salary = sum(map(int, salaries))
@@ -43,7 +43,7 @@ def calculate_salary(path: str) -> tuple[int, int] | tuple[None, None]:
 
 
 
-@global_exception_handler
+@log_errors
 def prepare_salary_report(path: str) -> None:
   total, average = calculate_salary(path)
   if total is not None and average is not None:
