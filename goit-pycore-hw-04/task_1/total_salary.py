@@ -4,22 +4,11 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from utils.decorators.log_errors import log_errors
+from utils.file_operations.fetch_data import fetch_data
 
 def calculate_total_and_average_salary(salaries: list) -> tuple[int, int]:
   total_salary = sum(map(int, salaries))
   return total_salary, total_salary // len(salaries)
-
-
-def fetch_data(path: str) -> list:
-  try:
-    with open(path, 'r', encoding='utf-8') as file:
-      data = [line.strip() for line in file.readlines()]
-      if not data:
-        raise ValueError(f"{fetch_data.__name__}: Файл порожній. Будь ласка, перевірте контент файлу.")
-      return data
-  except FileNotFoundError:
-    raise FileNotFoundError(f"{fetch_data.__name__}: Файл не знайдено. Перевірте шлях до файлу.")
-
 
 def extract_salary_amount(data: list) -> list:
   salaries = []
@@ -35,7 +24,6 @@ def extract_salary_amount(data: list) -> list:
     salaries.append(salary)
   return salaries
 
-
 def calculate_salary(path: str) -> tuple[int, int] | tuple[None, None]:
   try:
     salaries_data = fetch_data(path)
@@ -45,7 +33,6 @@ def calculate_salary(path: str) -> tuple[int, int] | tuple[None, None]:
     print(f'{calculate_salary.__name__}: Маємо наступну помилку -> {e}')
     # Повертаємо None, None, щоб не трігерити помилку далі в chain
     return None, None
-
 
 
 @log_errors

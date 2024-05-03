@@ -3,5 +3,5 @@ def log_errors(func):
     try:
       return func(*args, **kwargs)
     except Exception as e:
-      print(f'{log_errors.__name__}: {e}')
+      print(f'Декаратор {log_errors.__name__} виявив наступну помилку в {e}')
   return wrapper
