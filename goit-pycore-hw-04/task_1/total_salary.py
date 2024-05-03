@@ -1,4 +1,9 @@
-from decorators import log_errors
+
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from utils.decorators.log_errors import log_errors
 
 def calculate_total_and_average_salary(salaries: list) -> tuple[int, int]:
   total_salary = sum(map(int, salaries))
