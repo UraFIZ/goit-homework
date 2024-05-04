@@ -8,7 +8,13 @@ from utils.decorators.log_errors import log_errors
 from utils.colors.print_color_text import print_color_text
 
 
-colors = [Fore.BLUE, Fore.CYAN, Fore.GREEN, Fore.MAGENTA, Fore.YELLOW]
+def get_color(extraction_key: int | str, extraction_item = None):
+    if extraction_key == 'text':
+        return Fore.GREEN + Style.BRIGHT
+    colors = [Fore.BLUE, Fore.CYAN, Fore.GREEN, Fore.MAGENTA, Fore.YELLOW]
+    if extraction_item is not None:
+        colors.remove(extraction_item)
+    return colors[extraction_key % len(colors)] + Style.BRIGHT
 
 @log_errors
 def print_directory_structure(directory_path, counter=0):
@@ -17,12 +23,10 @@ def print_directory_structure(directory_path, counter=0):
     indent = '  ' * counter
     for item in items:
         if item.is_dir():
-            print_color_text(item.name, colors[counter % len(colors)] + Style.BRIGHT, indent, '/')
+            print_color_text(item.name, get_color(counter, Fore.GREEN), indent, '/')
             print_directory_structure(item, counter + 1)
         else:
-            print_color_text(item.name, colors[counter % len(colors)] + Style.BRIGHT, indent)
-
-
+            print_color_text(item.name, get_color('text'), indent)
 
 try:
     if len(sys.argv) != 2:
