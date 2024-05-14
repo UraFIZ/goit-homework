@@ -12,7 +12,6 @@ class Name(Field):
     def __init__(self, value: str):
         if not self.validate(value):
             raise PhoneExceptions.NameError(f"Name '{value}' must be alphabetic")
-        super().__init__(value)
 
     @staticmethod
     def validate(value: str):
@@ -22,7 +21,6 @@ class Phone(Field):
     def __init__(self, value: str):
         if not self.validate(value):
             raise PhoneExceptions.PhoneLengthError(f"Phone '{value}' must be 10 digits long")
-        super().__init__(value)
 
     @staticmethod
     def validate(value: str):
