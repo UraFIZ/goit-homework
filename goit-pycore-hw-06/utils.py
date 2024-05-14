@@ -40,6 +40,6 @@ def parse_command():
 
     subparsers.add_parser('list', help='List of all records. Example: "list"')
     subparsers.add_parser('close', help='Close the app and save the data. Example: "close"')
-    subparsers.add_parser('exit', help='Close the app and save the data. Example: "exist"')
+    subparsers.add_parser('exit', help='Close the app and save the data. Example: "exit"')
 
     return parser
