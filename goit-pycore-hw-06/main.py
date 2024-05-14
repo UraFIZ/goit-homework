@@ -31,6 +31,8 @@ def main():
 
             elif args.command == 'list':
                 list_records(book)
+            elif args.command == 'piatachok':
+                print("💝🐽🐽🐽 '' 🐷 '' 🐽🐽🐽💝")
 
             else:
                 print("Unknown command. Please try again.")

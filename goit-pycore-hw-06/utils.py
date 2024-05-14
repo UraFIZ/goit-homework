@@ -44,4 +44,9 @@ def parse_command():
     subparsers.add_parser('help', help='Show the current menu. Example: "-h" or "--help')
     subparsers.add_parser('command help', help='Show the help for a specific command. Example: "add -h"')
 
+
+    subparsers.add_parser('piatachok', help='Show the beautiful piatachok. Example: "piatachok"')
+
+
+
     return parser
