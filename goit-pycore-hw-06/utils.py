@@ -20,7 +20,7 @@ def format_table(headers, rows):
 
 
 def parse_command():
-    parser = argparse.ArgumentParser(prog='', description='Manage your address book. Have any questions? Type "-h, --help". Have fun!')
+    parser = argparse.ArgumentParser(prog='', description='Manage your address book. Have fun!')
     subparsers = parser.add_subparsers(dest='command')
 
     add_parser = subparsers.add_parser('add', help='add [name] [phone1] - Add a new record. Example: "add John 1234567890"')
@@ -41,5 +41,7 @@ def parse_command():
     subparsers.add_parser('list', help='List of all records. Example: "list"')
     subparsers.add_parser('close', help='Close the app and save the data. Example: "close"')
     subparsers.add_parser('exit', help='Close the app and save the data. Example: "exit"')
+    subparsers.add_parser('help', help='Show the current menu. Example: "-h" or "--help')
+    subparsers.add_parser('command help', help='Show the help for a specific command. Example: "add -h"')
 
     return parser
