@@ -1,4 +1,3 @@
-from models import AddressBook
 from commands import add_record, edit_record, delete_record, find_record, list_records
 from utils import parse_command
 from storage import AddressBookStorage
