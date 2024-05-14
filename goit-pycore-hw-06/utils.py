@@ -1,7 +1,5 @@
 import argparse
 
-from models import AddressBook
-
 
 def format_table(headers, rows):
     # Determine column widths
@@ -29,6 +27,8 @@ def display_menu():
     4. find [name] - Find a record
     5. list - List all records
     6. close or exit - Exit the program
+    7. -h  - Show the ability of this program
+    8  add, edit, delete, find, list -h - Show the expanation of the parameters
     """
     print(menu)
 
@@ -45,12 +45,12 @@ def parse_command(command):
     edit_parser.add_argument('old_phone', type=str, help='Old phone number')
     edit_parser.add_argument('new_phone', type=str, help='New phone number')
 
-    delete_parser = subparsers.add_parser('delete', help='Delete a record')
+    delete_parser = subparsers.add_parser('delete', help='Delete a record by the name')
     delete_parser.add_argument('name', type=str, help='Name of the contact')
 
-    find_parser = subparsers.add_parser('find', help='Find a record')
+    find_parser = subparsers.add_parser('find', help='Find a record by the name')
     find_parser.add_argument('name', type=str, help='Name of the contact')
 
-    list_parser = subparsers.add_parser('list', help='List all records')
+    subparsers.add_parser('list', help='List of all records')
 
     return parser.parse_args(command.split())
