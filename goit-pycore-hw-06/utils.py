@@ -3,15 +3,6 @@ import argparse
 from models import AddressBook
 
 
-def list_records(book: AddressBook):
-    if not book.data:
-        print("Address book is empty.")
-        return
-    
-    headers = ["Name", "Phone Numbers"]
-    rows = [[name, ', '.join(phone.value for phone in record.phones)] for name, record in book.data.items()]
-    print(format_table(headers, rows))
-
 def format_table(headers, rows):
     # Determine column widths
     col_widths = [max(len(str(item)) for item in col) for col in zip(*[headers] + rows)]

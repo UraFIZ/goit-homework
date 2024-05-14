@@ -1,6 +1,6 @@
 from models import AddressBook
-from commands import add_record, edit_record, delete_record, find_record
-from utils import display_menu, parse_command, list_records
+from commands import add_record, edit_record, delete_record, find_record, list_records
+from utils import display_menu, parse_command
 
 def main():
     book = AddressBook()
@@ -32,8 +32,10 @@ def main():
 
             else:
                 print("Unknown command. Please try again.")
+                
         except SystemExit:
             display_menu()
+
         except Exception as e:
             print(f"Error: {e}")
 

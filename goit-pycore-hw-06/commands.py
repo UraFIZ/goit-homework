@@ -1,4 +1,5 @@
 from models import AddressBook, Record
+from utils import format_table
 
 def add_record(book: AddressBook, name: str, phone: str):
     record = book.find(name)
@@ -29,4 +30,13 @@ def find_record(book: AddressBook, name: str):
         print(record)
     else:
         print(f"No record found for name '{name}'")
+
+def list_records(book: AddressBook):
+    if not book.data:
+        print("Address book is empty.")
+        return
+    
+    headers = ["Name", "Phone Numbers"]
+    rows = [[name, ', '.join(phone.value for phone in record.phones)] for name, record in book.data.items()]
+    print(format_table(headers, rows))
 

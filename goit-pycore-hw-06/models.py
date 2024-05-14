@@ -26,7 +26,6 @@ class Phone(Field):
 
     @staticmethod
     def validate(value: str):
-        print(f"Validating phone {value}")
         return len(value) == 10 and value.isdigit()
 
 class Record:
@@ -35,7 +34,6 @@ class Record:
         self.phones: list[Phone] = []
 
     def add_phone(self, phone: str):
-        print(f"Adding phone {phone}")
         self.phones.append(Phone(phone))
 
     def remove_phone(self, phone: str):
@@ -52,13 +50,11 @@ class Record:
         except StopIteration:
             raise PhoneExceptions.PhoneNotFound(f"Phone '{old_phone}' not found while trying to edit it")
 
-    def __str__(self):
-        return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
-
     def find_phone(self, phone: str):
-        """Utility method to find a phone object by its value."""
         return next((p for p in self.phones if p.value == phone), None)
 
+    def __str__(self):
+        return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 class AddressBook(UserDict):
     def add_record(self, record: Record):
         self.data[record.name.value] = record
