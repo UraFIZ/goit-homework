@@ -10,3 +10,6 @@ class PhoneExceptions:
 
     class NameError(Exception):
         """Raised when a name is invalid."""
+
+    class PhoneAlreadyExists(PhoneValidationError):
+        """Raised when a phone number already exists in the record."""

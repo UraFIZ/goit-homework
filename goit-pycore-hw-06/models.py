@@ -34,6 +34,8 @@ class Record:
         self.phones: list[Phone] = []
 
     def add_phone(self, phone: str):
+        if self.find_phone(phone):
+            raise PhoneExceptions.PhoneAlreadyExists(f"Phone '{phone}' already exists in the record")
         self.phones.append(Phone(phone))
 
     def remove_phone(self, phone: str):
