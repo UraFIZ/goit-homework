@@ -1,12 +1,12 @@
 from models import AddressBook
 from commands import add_record, edit_record, delete_record, find_record, list_records
-from utils import display_menu, parse_command
+from utils import parse_command
 from storage import AddressBookStorage
 
 def main():
     storage = AddressBookStorage()
     book = storage.load()
-    display_menu()
+    parse_command().print_help()
 
     while True:
         command = input("Enter command: ").strip()
@@ -17,7 +17,7 @@ def main():
             break
 
         try:
-            args = parse_command(command)
+            args = parse_command().parse_args(command.split())
             if args.command == 'add':
                 add_record(book, args.name, args.phone[0])
 
@@ -37,7 +37,7 @@ def main():
                 print("Unknown command. Please try again.")
 
         except SystemExit:
-            display_menu()
+            continue
 
         except Exception as e:
             print(f"Error: {e}")

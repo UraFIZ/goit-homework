@@ -18,39 +18,28 @@ def format_table(headers, rows):
     return "\n".join(table)
 
 
-def display_menu():
-    menu = """
-    Please choose an action:
-    1. add [name] [phone1] ... - Add a new record
-    2. edit [name] [old_phone] [new_phone] - Edit an existing phone number
-    3. delete [name] - Delete a record
-    4. find [name] - Find a record
-    5. list - List all records
-    6. close or exit - Exit the program
-    7. -h  - Show the ability of this program
-    8  add, edit, delete, find, list -h - Show the expanation of the parameters
-    """
-    print(menu)
 
-def parse_command(command):
-    parser = argparse.ArgumentParser(prog='', description='Manage your address book.')
+def parse_command():
+    parser = argparse.ArgumentParser(prog='', description='Manage your address book. Available commands: add, edit, delete, find, list, close, exist. Have any questions? Type "-h, --help". Have fun!')
     subparsers = parser.add_subparsers(dest='command')
 
-    add_parser = subparsers.add_parser('add', help='Add a new record')
-    add_parser.add_argument('name', type=str, help='Name of the contact')
-    add_parser.add_argument('phone', type=str, nargs='+', help='Phone numbers of the contact')
+    add_parser = subparsers.add_parser('add', help='add [name] [phone1] - Add a new record. Example: "add John 1234567890"')
+    add_parser.add_argument('name', type=str, help='Name of the contact. It should contain only letters and spaces.')
+    add_parser.add_argument('phone', type=str, nargs='+', help='Phone numbers of the contact. It should contain only digits and be 10 digits long.')
 
-    edit_parser = subparsers.add_parser('edit', help='Edit an existing phone number')
+    edit_parser = subparsers.add_parser('edit', help='edit [name] [old_phone] [new_phone] - Edit an existing phone number. Example: "edit John 1234567890 0987654321"')
     edit_parser.add_argument('name', type=str, help='Name of the contact')
     edit_parser.add_argument('old_phone', type=str, help='Old phone number')
-    edit_parser.add_argument('new_phone', type=str, help='New phone number')
+    edit_parser.add_argument('new_phone', type=str, help='New phone number. Must be 10 digits long.')
 
-    delete_parser = subparsers.add_parser('delete', help='Delete a record by the name')
+    delete_parser = subparsers.add_parser('delete', help='delete [name] - Delete a record by the name. Example: "delete John"')
     delete_parser.add_argument('name', type=str, help='Name of the contact')
 
-    find_parser = subparsers.add_parser('find', help='Find a record by the name')
+    find_parser = subparsers.add_parser('find', help='find [name] - Find a record by the name. Example: "find John"')
     find_parser.add_argument('name', type=str, help='Name of the contact')
 
-    subparsers.add_parser('list', help='List of all records')
+    subparsers.add_parser('list', help='List of all records. Example: "list"')
+    subparsers.add_parser('close', help='Close the app and save the data. Example: "close"')
+    subparsers.add_parser('exist', help='Close the app and save the data. Example: "exist"')
 
-    return parser.parse_args(command.split())
+    return parser
