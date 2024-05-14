@@ -44,6 +44,8 @@ class Record:
             raise PhoneExceptions.PhoneNotFound(f"Phone '{phone}' not found while trying to remove it")
 
     def edit_phone(self, old_phone: str, new_phone: str):
+        if not Phone.validate(new_phone):
+            raise PhoneExceptions.PhoneLengthError(f"Phone '{new_phone}' must be 10 digits long")
         try:
             phone_to_edit = next(p for p in self.phones if p.value == old_phone)
             phone_to_edit.value = new_phone
@@ -52,9 +54,20 @@ class Record:
 
     def find_phone(self, phone: str):
         return next((p for p in self.phones if p.value == phone), None)
+    
+    def to_dict(self):
+        return {self.name.value: [phone.value for phone in self.phones]}
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+    
+    @classmethod
+    def from_dict(cls, name, data):
+        record = cls(name)
+        for phone in data:
+            record.add_phone(phone)
+        return record
+
 class AddressBook(UserDict):
     def add_record(self, record: Record):
         self.data[record.name.value] = record
@@ -70,6 +83,18 @@ class AddressBook(UserDict):
 
     def __str__(self):
         return f"Address book: {', '.join(self.data.keys())}"
+    
+    def to_dict(self):
+        return {name: record.to_dict()[name] for name, record in self.data.items()}
+    
+    @classmethod
+    def from_dict(cls, data):
+        address_book = cls()
+        for name, phones in data.items():
+            address_book.add_record(Record.from_dict(name, phones))
+        return address_book
+    
+    
     
     
     

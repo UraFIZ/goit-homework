@@ -1,15 +1,18 @@
 from models import AddressBook
 from commands import add_record, edit_record, delete_record, find_record, list_records
 from utils import display_menu, parse_command
+from storage import AddressBookStorage
 
 def main():
-    book = AddressBook()
+    storage = AddressBookStorage()
+    book = storage.load()
     display_menu()
 
     while True:
         command = input("Enter command: ").strip()
         
         if command.lower() in ["close", "exit"]:
+            storage.save(book)
             print("Exiting program.")
             break
 
@@ -32,7 +35,7 @@ def main():
 
             else:
                 print("Unknown command. Please try again.")
-                
+
         except SystemExit:
             display_menu()
 
