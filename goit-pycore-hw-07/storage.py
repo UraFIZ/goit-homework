@@ -6,6 +6,8 @@ class AddressBookStorage:
         self.filename = filename
 
     def save(self, book: AddressBook):
+        if not book:
+            return
         with open(self.filename, 'w') as file:
             json.dump(book.to_dict(), file)
 

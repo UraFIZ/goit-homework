@@ -13,22 +13,22 @@ class Field:
 
 class Name(Field):
     def __init__(self, value: str):
-        if not self.validate(value):
+        if not self.__validate(value):
             raise CustomeExceptions.NameError(f"Name '{value}' must be alphabetic")
         super().__init__(value)
 
     @staticmethod
-    def validate(value: str):
+    def __validate(value: str):
         return value.isalpha()
 
 class Phone(Field):
     def __init__(self, value: str):
-        if not self.validate(value):
+        if not self.__validate(value):
             raise CustomeExceptions.PhoneLengthError(f"Phone '{value}' must be 10 digits long")
         super().__init__(value)
 
     @staticmethod
-    def validate(value: str):
+    def __validate(value: str):
         return len(value) == 10 and value.isdigit()
     
     def __repr__(self):
@@ -36,12 +36,12 @@ class Phone(Field):
 
 class Birthday(Field):
     def __init__(self, value: str):
-        if not self.validate(value):
+        if not self.__validate(value):
             raise CustomeExceptions.BirthdayError(f"Birthday '{value}' must be in format 'YYYY-MM-DD'")
         super().__init__(value)
 
     @staticmethod
-    def validate(value: str):
+    def __validate(value: str):
         try:
             datetime.strptime(value, '%Y-%m-%d')
             return True
